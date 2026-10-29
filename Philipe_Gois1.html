@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Philipe Gois - Desenvolvedor Full Stack</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#070a13',
+                        cardBg: '#0e1424',
+                        cardHover: '#131b31',
+                        accentBlue: '#0066ff',
+                        accentBlueHover: '#0052cc',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #070a13;
+            color: #f1f5f9;
+        }
+        .hero-bg {
+            background: url('FUNDO.jpeg');
+            background-size: cover;
+            background-position: center;
+        }
+        /* Move a imagem para a esquerda para trazer a metade do rosto no mobile */
+        @media (max-width: 768px) {
+            .hero-bg {
+                background-position: left 65% center;
+            }
+        }
+        .cta-bg {
+            background: linear-gradient(rgba(7, 10, 19, 0.85), rgba(7, 10, 19, 0.85)), url('https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        /* Custom Scrollbar para o Modal de Imagens Grandes */
+        #carousel-modal-track::-webkit-scrollbar {
+            height: 10px;
+        }
+        #carousel-modal-track::-webkit-scrollbar-track {
+            background: #0e1424;
+            border-radius: 8px;
+        }
+        #carousel-modal-track::-webkit-scrollbar-thumb {
+            background: #0066ff;
+            border-radius: 8px;
+        }
+        /* Efeito Futurista de Brilho Neon */
+        .futuristic-glow {
+            box-shadow: 0 0 35px rgba(0, 102, 255, 0.35), inset 0 0 20px rgba(0, 102, 255, 0.15);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-accentBlue selection:text-white">
+
+    <!-- Header / Navbar -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#070a13]/90 backdrop-blur-md border-b border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo & Title -->
+            <a href="#home" class="flex flex-col">
+                <span class="text-xl font-bold tracking-tight text-white">Philipe Gois</span>
+                <span class="text-xs font-medium text-accentBlue uppercase tracking-widest">Desenvolvedor Full Stack</span>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+                <a href="#home" class="text-white hover:text-accentBlue transition-colors">Início</a>
+                <a href="#about" class="hover:text-accentBlue transition-colors">Sobre</a>
+                <a href="#services" class="hover:text-accentBlue transition-colors">Serviços</a>
+                <a href="#blog" class="hover:text-accentBlue transition-colors">Blog</a>
+                <a href="#contact" class="hover:text-accentBlue transition-colors">Contato</a>
+            </nav>
+
+            <!-- WhatsApp Button -->
+            <div class="hidden md:block">
+                <a href="https://wa.me/5573982103824" target="_blank" class="bg-accentBlue hover:bg-accentBlueHover text-white px-6 py-2.5 rounded-lg text-sm font-semibold shadow-lg shadow-accentBlue/25 transition-all transform hover:-translate-y-0.5 flex items-center space-x-2">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>Falar Comigo</span>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="menu-btn" aria-label="Abrir menu" aria-expanded="false" class="md:hidden text-slate-300 hover:text-white focus:outline-none p-2 rounded-lg transition-colors hover:bg-slate-800/50">
+                <i id="menu-icon" class="fa-solid fa-bars text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-cardBg/95 backdrop-blur-md border-b border-slate-800/80 px-6 py-5 space-y-4 shadow-2xl transition-all duration-300">
+            <a href="#home" class="block text-slate-300 hover:text-accentBlue font-medium text-base py-1.5 transition-colors">Início</a>
+            <a href="#about" class="block text-slate-300 hover:text-accentBlue font-medium text-base py-1.5 transition-colors">Sobre</a>
+            <a href="#services" class="block text-slate-300 hover:text-accentBlue font-medium text-base py-1.5 transition-colors">Serviços</a>
+            <a href="#blog" class="block text-slate-300 hover:text-accentBlue font-medium text-base py-1.5 transition-colors">Blog</a>
+            <a href="#contact" class="block text-slate-300 hover:text-accentBlue font-medium text-base py-1.5 transition-colors">Contato</a>
+            <div class="pt-3 border-t border-slate-800">
+                <a href="https://wa.me/5573982103824" target="_blank" class="block text-center bg-accentBlue hover:bg-accentBlueHover text-white py-3 rounded-lg font-semibold shadow-lg shadow-accentBlue/20 flex items-center justify-center space-x-2 transition-all">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>Falar Comigo</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg pt-32 pb-20 md:pt-44 md:pb-32 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Hero Left Content -->
+                <div class="lg:col-span-8 space-y-6">
+                    <span class="inline-block text-accentBlue font-semibold text-sm sm:text-base tracking-wide bg-accentBlue/10 px-4 py-1.5 rounded-full border border-accentBlue/20">
+                        Olá, eu sou
+                    </span>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
+                        Philipe Gois <br>
+                        <span class="text-accentBlue">Desenvolvedor Full Stack</span>
+                    </h1>
+                    <p class="text-slate-300 text-lg sm:text-xl max-w-2xl font-normal leading-relaxed">
+                        Meu foco é transformar ideias em experiências digitais de alto impacto para empresas brasileiras.
+                    </p>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <a href="#blog" class="bg-accentBlue hover:bg-accentBlueHover text-white px-7 py-3.5 rounded-xl font-semibold flex items-center space-x-2 shadow-lg shadow-accentBlue/30 transition-all transform hover:-translate-y-0.5">
+                            <span>Ver Meu Trabalho</span>
+                            <i class="fa-solid fa-arrow-right text-sm"></i>
+                        </a>
+                        <a href="https://wa.me/5573981820832" target="_blank" class="bg-accentBlue hover:bg-accentBlueHover text-white px-7 py-3.5 rounded-xl font-semibold flex items-center space-x-2 shadow-lg shadow-accentBlue/30 transition-all transform hover:-translate-y-0.5">
+                            <i class="fa-brands fa-whatsapp text-xl"></i>
+                            <span>Falar Comigo</span>
+                        </a>
+                    </div>
+
+                    <!-- Trusted Companies -->
+                    <div class="pt-10 border-t border-slate-800/80 mt-10">
+                        <p class="text-xs uppercase tracking-wider text-slate-400 font-semibold mb-4">Apoiado por empresas no Brasil e globalmente</p>
+                        <div class="flex flex-wrap items-center gap-8 opacity-75 grayscale hover:grayscale-0 transition-all">
+                            <div class="flex items-center space-x-2 font-bold text-lg text-white"><i class="fa-brands fa-github text-white text-2xl"></i><span>GitHub</span></div>
+                            <div class="flex items-center space-x-2 font-bold text-lg text-white"><i class="fa-brands fa-google text-red-500 text-2xl"></i><span>Google</span></div>
+                            <div class="flex items-center space-x-2 font-bold text-lg text-white"><i class="fa-solid fa-brain text-teal-400 text-2xl"></i><span>OpenAI</span></div>
+                            <div class="flex items-center space-x-2 font-bold text-lg text-white"><i class="fa-brands fa-linux text-yellow-400 text-2xl"></i><span>Linux</span></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="py-24 bg-cardBg/30 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Details -->
+                <div class="lg:col-span-7 space-y-6">
+                    <span class="text-accentBlue font-semibold text-xs sm:text-sm uppercase tracking-widest bg-accentBlue/10 px-3 py-1 rounded-md border border-accentBlue/20">
+                        Sobre Mim
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+                        Construindo Soluções Que Geram Impacto
+                    </h2>
+                    <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+                        Sou Desenvolvedor Full Stack, natural de Itabuna/BA, especializado na criação de aplicações web modernas e escaláveis. Unindo um forte senso de design UI/UX a uma sólida cultura de código limpo, ajudo empresas brasileiras a construírem produtos digitais de alta performance, do conceito à produção.
+                    </p>
+
+                    <!-- Stats Grid -->
+                    <div class="grid grid-cols-2 gap-4 py-2">
+                        <div class="bg-cardBg p-5 rounded-xl border border-slate-800 flex items-center space-x-4">
+                            <div class="p-3 bg-accentBlue/10 text-accentBlue rounded-lg"><i class="fa-solid fa-briefcase text-xl"></i></div>
+                            <div>
+                                <h4 class="text-xl font-bold text-white">+5 Anos</h4>
+                                <p class="text-xs text-slate-400">Experiência</p>
+                            </div>
+                        </div>
+                        <div class="bg-cardBg p-5 rounded-xl border border-slate-800 flex items-center space-x-4">
+                            <div class="p-3 bg-accentBlue/10 text-accentBlue rounded-lg"><i class="fa-solid fa-circle-check text-xl"></i></div>
+                            <div>
+                                <h4 class="text-xl font-bold text-white">+25 Projetos</h4>
+                                <p class="text-xs text-slate-400">Concluídos</p>
+                            </div>
+                        </div>
+                        <div class="bg-cardBg p-5 rounded-xl border border-slate-800 flex items-center space-x-4">
+                            <div class="p-3 bg-accentBlue/10 text-accentBlue rounded-lg"><i class="fa-solid fa-laptop-code text-xl"></i></div>
+                            <div>
+                                <h4 class="text-xl font-bold text-white">Freelance</h4>
+                                <p class="text-xs text-slate-400">Disponível</p>
+                            </div>
+                        </div>
+                        <div class="bg-cardBg p-5 rounded-xl border border-slate-800 flex items-center space-x-4">
+                            <div class="p-3 bg-accentBlue/10 text-accentBlue rounded-lg"><i class="fa-solid fa-users text-xl"></i></div>
+                            <div>
+                                <h4 class="text-xl font-bold text-white">Designer</h4>
+                                <p class="text-xs text-slate-400">Com clientes Satisfeitos No Brasil todo</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Contact Card Box -->
+                <div class="lg:col-span-5">
+                    <div class="bg-cardBg p-8 rounded-2xl border border-slate-800 shadow-xl space-y-6 relative overflow-hidden">
+                        <div class="absolute -right-10 -top-10 w-40 h-40 bg-accentBlue/10 rounded-full blur-2xl"></div>
+                        
+                        <div class="flex items-start space-x-4 border-b border-slate-800 pb-5">
+                            <div class="p-3 bg-accentBlue/10 text-accentBlue rounded-xl mt-1"><i class="fa-solid fa-location-dot text-lg"></i></div>
+                            <div>
+                                <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">Localização</p>
+                                <p class="text-white font-semibold text-base">Itabuna, Bahia, Brasil</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4 border-b border-slate-800 pb-5">
+                            <div class="p-3 bg-accentBlue/10 text-accentBlue rounded-xl mt-1"><i class="fa-regular fa-envelope text-lg"></i></div>
+                            <div>
+                                <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">E-mail</p>
+                                <p class="text-white font-semibold text-base">masterltda327@gmail.com</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4 border-b border-slate-800 pb-5">
+                            <div class="p-3 bg-accentBlue/10 text-accentBlue rounded-xl mt-1"><i class="fa-brands fa-whatsapp text-lg"></i></div>
+                            <div>
+                                <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">WhatsApp</p>
+                                <p class="text-white font-semibold text-base">+55 (73) 98182-0832</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="p-3 bg-accentBlue/10 text-accentBlue rounded-xl mt-1"><i class="fa-solid fa-language text-lg"></i></div>
+                            <div>
+                                <p class="text-xs text-slate-400 font-medium uppercase tracking-wider">Idiomas</p>
+                                <p class="text-white font-semibold text-base">Português, Inglês</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4 mb-16">
+            <span class="text-accentBlue font-semibold text-xs sm:text-sm uppercase tracking-widest bg-accentBlue/10 px-3 py-1 rounded-md border border-accentBlue/20">
+                Meus Serviços
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+                O Que Posso Fazer Por Você
+            </h2>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+                
+                <!-- Service 1 (Desenvolvimento Web) -->
+                <div id="web-dev-card" class="bg-cardBg hover:bg-cardHover p-8 rounded-2xl border border-slate-800 transition-all duration-300 group hover:-translate-y-1 hover:border-accentBlue/50 flex flex-col justify-between cursor-pointer relative">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 bg-accentBlue/10 text-accentBlue rounded-xl flex items-center justify-center text-2xl group-hover:bg-accentBlue group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xl font-bold text-white">Desenvolvimento Web</h3>
+                            <i class="fa-solid fa-expand text-slate-500 group-hover:text-accentBlue text-sm transition-colors" title="Clique para ver amostras"></i>
+                        </div>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Sites e aplicações web personalizados construídos com as tecnologias mais recentes e backends robustos.
+                        </p>
+                    </div>
+                    <span class="text-xs text-accentBlue font-semibold inline-flex items-center gap-1.5 pt-4">
+                        <span>Clique para ver exemplos</span>
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </span>
+                </div>
+
+                <!-- Service 2 (Criação de Aplicativos) -->
+                <div id="app-dev-card" class="bg-cardBg hover:bg-cardHover p-8 rounded-2xl border border-slate-800 transition-all duration-300 group hover:-translate-y-1 hover:border-accentBlue/50 flex flex-col justify-between cursor-pointer relative">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 bg-accentBlue/10 text-accentBlue rounded-xl flex items-center justify-center text-2xl group-hover:bg-accentBlue group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xl font-bold text-white">Criação de Aplicativos</h3>
+                            <i class="fa-solid fa-expand text-slate-500 group-hover:text-accentBlue text-sm transition-colors" title="Clique para ver amostras"></i>
+                        </div>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Aplicativos móveis de alta performance para Android e iOS, desenvolvidos com foco em experiência do usuário e escalabilidade.
+                        </p>
+                    </div>
+                    <span class="text-xs text-accentBlue font-semibold inline-flex items-center gap-1.5 pt-4">
+                        <span>Clique para ver exemplos</span>
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </span>
+                </div>
+
+                <!-- Service 3 (Backend & APIs) -->
+                <div class="bg-cardBg hover:bg-cardHover p-8 rounded-2xl border border-slate-800 transition-all duration-300 group hover:-translate-y-1 hover:border-accentBlue/50 flex flex-col justify-between relative">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 bg-accentBlue/10 text-accentBlue rounded-xl flex items-center justify-center text-2xl group-hover:bg-accentBlue group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-server"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Backend & APIs</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Desenvolvimento de APIs robustas, microsserviços e sistemas de backend escaláveis para impulsionar a sua aplicação.
+                        </p>
+                    </div>
+                    <a href="https://wa.me/5573982103824?text=Olá,%20tenho%20interesse%20no%20serviço%20de%20Backend%20&%20APIs." target="_blank" class="text-xs text-accentBlue font-semibold inline-flex items-center gap-1.5 pt-4 hover:underline">
+                        <i class="fa-brands fa-whatsapp text-sm"></i>
+                        <span>Falar Comigo</span>
+                    </a>
+                </div>
+
+                <!-- Service 4 (Arquitetura de Dados) -->
+                <div class="bg-cardBg hover:bg-cardHover p-8 rounded-2xl border border-slate-800 transition-all duration-300 group hover:-translate-y-1 hover:border-accentBlue/50 flex flex-col justify-between relative">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 bg-accentBlue/10 text-accentBlue rounded-xl flex items-center justify-center text-2xl group-hover:bg-accentBlue group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-database"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Arquitetura de Dados</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Modelagem de bases de dados, otimização de estruturas e gestão eficiente de fluxos de informação para negócios.
+                        </p>
+                    </div>
+                    <a href="https://wa.me/5573982103824?text=Olá,%20tenho%20interesse%20no%20serviço%20de%20Arquitetura%20de%20Dados." target="_blank" class="text-xs text-accentBlue font-semibold inline-flex items-center gap-1.5 pt-4 hover:underline">
+                        <i class="fa-brands fa-whatsapp text-sm"></i>
+                        <span>Falar Comigo</span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4 mb-16">
+            <span class="text-accentBlue font-semibold text-xs sm:text-sm uppercase tracking-widest bg-accentBlue/10 px-3 py-1 rounded-md border border-accentBlue/20">
+                Últimos Artigos
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+                Do Meu Blog
+            </h2>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Blog 1 -->
+                <a href="https://desenvolvimento-full-stack-2027.netlify.app" target="_blank" class="bg-cardBg rounded-2xl overflow-hidden border border-slate-800 group hover:border-accentBlue/50 transition-all duration-300 block relative">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="Desenvolvimento Full Stack em 2027.png" alt="Desenvolvimento Full Stack em 2027" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-4 left-4 bg-accentBlue text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+                            2027
+                        </span>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <span class="text-xs text-accentBlue font-medium">24 de Outubro de 2026</span>
+                        <h3 class="text-lg font-bold text-white group-hover:text-accentBlue transition-colors">Dominando o Desenvolvimento Web Full Stack em 2027</h3>
+                        <p class="text-slate-400 text-sm">Do front-end à inteligência artificial: entenda como conectar interfaces, APIs, bancos de dados e infraestrutura para criar aplicações modernas, seguras e escaláveis.</p>
+                    </div>
+                </a>
+
+                <!-- Blog 2 -->
+                <a href="https://guia-de-front-end.netlify.app/" target="_blank" class="bg-cardBg rounded-2xl overflow-hidden border border-slate-800 group hover:border-accentBlue/50 transition-all duration-300 block relative">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80" alt="Post do Blog" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <span class="text-xs text-accentBlue font-medium">15 de Agosto de 2026</span>
+                        <h3 class="text-lg font-bold text-white group-hover:text-accentBlue transition-colors">Por Que o Tailwind CSS Está Transformando o Design de UI</h3>
+                        <p class="text-slate-400 text-sm">Explore como o CSS utilitário capacita desenvolvedores a criar aplicativos web bonitos e responsivos rapidamente.</p>
+                    </div>
+                </a>
+
+                <!-- Blog 3 -->
+                <a href="https://cibersegurit.netlify.app" target="_blank" class="bg-cardBg rounded-2xl overflow-hidden border border-slate-800 group hover:border-accentBlue/50 transition-all duration-300 block relative">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80" alt="Post do Blog" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <span class="text-xs text-accentBlue font-medium">5 de julho de 2026</span>
+                        <h3 class="text-lg font-bold text-white group-hover:text-accentBlue transition-colors">Protegendo APIs Web e Bancos de Dados Modernos</h3>
+                        <p class="text-slate-400 text-sm">Melhores práticas para autenticação, autorização, criptografia de dados e implantação segura na nuvem.</p>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="contact" class="cta-bg py-24 relative overflow-hidden text-center">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 relative z-10">
+            <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+                Vamos Trabalhar Juntos
+            </h2>
+            <p class="text-slate-300 text-lg sm:text-xl max-w-2xl mx-auto">
+                Tem um projeto em mente? Adoraria saber mais sobre ele. Vamos criar algo incrível juntos.
+            </p>
+            <div class="pt-4">
+                <a href="https://wa.me/5573982103824" target="_blank" class="inline-flex items-center space-x-2 bg-accentBlue hover:bg-accentBlueHover text-white px-8 py-4 rounded-xl font-bold shadow-xl shadow-accentBlue/30 transition-all transform hover:-translate-y-0.5">
+                    <i class="fa-brands fa-whatsapp text-2xl"></i>
+                    <span>Atendente Master</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODAL / CARROSSEL PRINCIPAL -->
+    <div id="carousel-modal" class="fixed inset-0 z-[100] hidden bg-black/90 backdrop-blur-lg flex-col justify-between p-4 sm:p-8 overflow-hidden transition-all duration-300">
+        
+        <!-- Modal Top Bar -->
+        <div class="max-w-7xl w-full mx-auto flex items-center justify-between pb-4 border-b border-slate-800">
+            <div>
+                <span class="text-accentBlue font-bold text-xs uppercase tracking-widest">Galeria do Serviço</span>
+                <h3 id="modal-title" class="text-xl sm:text-2xl font-bold text-white">Desenvolvimento Web — Projetos & Amostras</h3>
+            </div>
+            <button id="close-modal-btn" class="w-12 h-12 rounded-full bg-slate-800/80 hover:bg-accentBlue text-white flex items-center justify-center text-xl transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Rolo Horizontal com Imagens Limpas -->
+        <div class="my-auto w-full max-w-7xl mx-auto">
+            <div id="carousel-modal-track" class="flex space-x-6 overflow-x-auto py-6 px-2 snap-x snap-mandatory">
+                <!-- Imagens carregadas dinamicamente aqui -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FUTURISTA AO CLICAR NA IMAGEM (ORÇAMENTO WHATSAPP) -->
+    <div id="futuristic-lightbox" class="fixed inset-0 z-[120] hidden bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 sm:p-6 transition-all duration-300">
+        <div class="relative w-full max-w-4xl bg-[#090d1c] border border-accentBlue/50 futuristic-glow rounded-3xl p-6 sm:p-8 overflow-hidden flex flex-col md:flex-row gap-8 items-center shadow-2xl">
+            
+            <!-- Botão Fechar Futurista -->
+            <button id="close-futuristic-btn" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-slate-900/90 border border-accentBlue/30 hover:bg-accentBlue text-white flex items-center justify-center text-lg transition-all z-20">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Imagem em Destaque -->
+            <div class="w-full md:w-3/5 h-[50vh] sm:h-[60vh] rounded-2xl overflow-hidden bg-black/80 border border-slate-800 flex items-center justify-center relative group">
+                <img id="futuristic-img" src="" alt="Amostra Selecionada" class="w-full h-full object-contain">
+                <div class="absolute inset-0 bg-gradient-to-t from-accentBlue/10 to-transparent pointer-events-none"></div>
+            </div>
+
+            <!-- Painel de Informações & Ação Futurista -->
+            <div class="w-full md:w-2/5 flex flex-col justify-between space-y-6 text-left">
+                <div class="space-y-3">
+                    <div class="inline-flex items-center space-x-2 bg-accentBlue/10 border border-accentBlue/30 px-3 py-1 rounded-full text-accentBlue text-xs font-bold uppercase tracking-widest">
+                        <i class="fa-solid fa-microchip"></i>
+                        <span id="futuristic-badge">Amostra #01</span>
+                    </div>
+                    <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Gostou dessa criação?</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Transforme sua ideia em realidade. Solicite um orçamento personalizado diretamente com o desenvolvedor agora mesmo.
+                    </p>
+                </div>
+
+                <div class="pt-4 border-t border-slate-800/80">
+                    <a id="futuristic-whatsapp-btn" href="#" target="_blank" class="w-full bg-accentBlue hover:bg-accentBlueHover text-white py-4 px-6 rounded-xl font-bold text-center flex items-center justify-center space-x-3 shadow-lg shadow-accentBlue/40 transition-all transform hover:-translate-y-1">
+                        <i class="fa-brands fa-whatsapp text-2xl"></i>
+                        <span>Faça seu Orçamento</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-[#05070e] border-t border-slate-800/80 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="flex items-center space-x-3">
+                <img src="grifo de ouro.jpg" alt="Logo Grifo de Ouro" class="w-12 h-12 rounded-full object-cover border border-slate-700 shadow-md">
+                <div class="flex flex-col items-center sm:items-start">
+                    <span class="text-lg font-bold text-white">Philipe Gois</span>
+                    <span class="text-xs text-slate-400">Desenvolvedor Full Stack</span>
+                </div>
+            </div>
+
+            <p class="text-xs text-slate-500 text-center">
+                © 2026 Philipe Gois. Todos os direitos reservados.
+            </p>
+
+            <div class="flex items-center space-x-4 text-slate-400">
+                <a href="https://github.com" target="_blank" class="w-10 h-10 rounded-full bg-cardBg hover:bg-accentBlue hover:text-white flex items-center justify-center transition-colors border border-slate-800">
+                    <i class="fa-brands fa-github text-sm"></i>
+                </a>
+                <a href="https://linkedin.com" target="_blank" class="w-10 h-10 rounded-full bg-cardBg hover:bg-accentBlue hover:text-white flex items-center justify-center transition-colors border border-slate-800">
+                    <i class="fa-brands fa-linkedin-in text-sm"></i>
+                </a>
+                <a href="https://twitter.com" target="_blank" class="w-10 h-10 rounded-full bg-cardBg hover:bg-accentBlue hover:text-white flex items-center justify-center transition-colors border border-slate-800">
+                    <i class="fa-brands fa-x-twitter text-sm"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts: Menu Mobile, Carrossel & Lightbox Futurista -->
+    <script>
+        // Menu Mobile
+        const menuBtn = document.getElementById('menu-btn');
+        const menuIcon = document.getElementById('menu-icon');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function toggleMenu() {
+            const isHidden = mobileMenu.classList.contains('hidden');
+            if (isHidden) {
+                mobileMenu.classList.remove('hidden');
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-xmark');
+                menuBtn.setAttribute('aria-expanded', 'true');
+            } else {
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
+                menuBtn.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (!mobileMenu.classList.contains('hidden')) {
+                    toggleMenu();
+                }
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+                if (!mobileMenu.classList.contains('hidden')) {
+                    toggleMenu();
+                }
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768 && !mobileMenu.classList.contains('hidden')) {
+                toggleMenu();
+            }
+        });
+
+        // Modais de Carrossel & Lightbox Futurista
+        const webCard = document.getElementById('web-dev-card');
+        const appCard = document.getElementById('app-dev-card');
+        const carouselModal = document.getElementById('carousel-modal');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        const modalTrack = document.getElementById('carousel-modal-track');
+        const modalTitle = document.getElementById('modal-title');
+
+        // Elementos do Lightbox Futurista
+        const futuristicLightbox = document.getElementById('futuristic-lightbox');
+        const closeFuturisticBtn = document.getElementById('close-futuristic-btn');
+        const futuristicImg = document.getElementById('futuristic-img');
+        const futuristicBadge = document.getElementById('futuristic-badge');
+        const futuristicWhatsappBtn = document.getElementById('futuristic-whatsapp-btn');
+
+        let webImagesLoaded = false;
+        let appImagesLoaded = false;
+
+        webCard.addEventListener('click', () => {
+            modalTitle.textContent = 'Desenvolvimento Web — Projetos & Amostras';
+            openModal();
+            if (!webImagesLoaded) {
+                webImagesLoaded = true;
+                loadSequentialImagesModal('');
+            }
+        });
+
+        appCard.addEventListener('click', () => {
+            modalTitle.textContent = 'Criação de Aplicativos — Projetos & Amostras';
+            openModal();
+            if (!appImagesLoaded) {
+                appImagesLoaded = true;
+                loadSequentialImagesModal('app');
+            }
+        });
+
+        function openModal() {
+            carouselModal.classList.remove('hidden');
+            carouselModal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            carouselModal.classList.add('hidden');
+            carouselModal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        closeModalBtn.addEventListener('click', closeModal);
+
+        carouselModal.addEventListener('click', (e) => {
+            if (e.target === carouselModal) {
+                closeModal();
+            }
+        });
+
+        // Fechar com ESC (fecha o lightbox futurista se aberto, senão fecha o carrossel)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (!futuristicLightbox.classList.contains('hidden')) {
+                    closeFuturisticLightbox();
+                } else if (!carouselModal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            }
+        });
+
+        // Funções do Lightbox Futurista
+        function openFuturisticLightbox(src, badgeText, serviceName) {
+            futuristicImg.src = src;
+            futuristicBadge.textContent = badgeText;
+            
+            let message = encodeURIComponent(`Olá! Vi a amostra (${badgeText} de ${serviceName}) no seu site, gostei muito e gostaria de fazer um orçamento.`);
+            futuristicWhatsappBtn.href = `https://wa.me/5573981820832?text=${message}`;
+
+            futuristicLightbox.classList.remove('hidden');
+            futuristicLightbox.classList.add('flex');
+        }
+
+        function closeFuturisticLightbox() {
+            futuristicLightbox.classList.add('hidden');
+            futuristicLightbox.classList.remove('flex');
+        }
+
+        closeFuturisticBtn.addEventListener('click', closeFuturisticLightbox);
+
+        futuristicLightbox.addEventListener('click', (e) => {
+            if (e.target === futuristicLightbox) {
+                closeFuturisticLightbox();
+            }
+        });
+
+        // Carregamento de Imagens para o Carrossel (Com clique para abrir o Lightbox Futurista)
+        function loadSequentialImagesModal(prefix = '') {
+            modalTrack.innerHTML = '';
+            let index = 1;
+            const maxAttempts = 30;
+
+            function tryLoadImage() {
+                if (index > maxAttempts) return;
+
+                let numStr = index < 10 ? '0' + index : '' + index;
+                let baseName = prefix ? prefix + numStr : numStr;
+                let imgPath = baseName + '.jpg';
+                let testImg = new Image();
+
+                testImg.onload = function() {
+                    appendImageToTrack(imgPath, numStr, prefix);
+                    index++;
+                    tryLoadImage();
+                };
+
+                testImg.onerror = function() {
+                    let imgPathPng = baseName + '.png';
+                    let testPng = new Image();
+
+                    testPng.onload = function() {
+                        appendImageToTrack(imgPathPng, numStr, prefix);
+                        index++;
+                        tryLoadImage();
+                    };
+
+                    testPng.onerror = function() {
+                        if (index === 1) {
+                            let sampleName = prefix ? prefix + '01.jpg' : '01.jpg';
+                            modalTrack.innerHTML = `
+                                <div class="text-center py-12 w-full text-slate-400">
+                                    <i class="fa-regular fa-image text-4xl mb-3 text-slate-600"></i>
+                                    <p class="text-lg font-semibold">Nenhuma imagem sequencial encontrada!</p>
+                                    <p class="text-sm text-slate-500">Salve suas imagens na pasta como <code class="text-accentBlue font-mono">${sampleName}</code>, etc.</p>
+                                </div>
+                            `;
+                        }
+                    };
+                    testPng.src = imgPathPng;
+                };
+
+                testImg.src = imgPath;
+            }
+
+            function appendImageToTrack(src, num, pfx) {
+                let itemDiv = document.createElement('div');
+                itemDiv.className = 'flex-shrink-0 w-[85vw] sm:w-[500px] md:w-[650px] lg:w-[800px] h-[70vh] rounded-2xl overflow-hidden border border-slate-800 shadow-2xl bg-cardBg snap-center flex flex-col justify-center items-center relative group cursor-pointer';
+                
+                let badgeText = pfx ? `App #${num}` : `Amostra #${num}`;
+                let serviceLabel = pfx ? `Criação de Aplicativos` : `Desenvolvimento Web`;
+
+                itemDiv.innerHTML = `
+                    <img src="${src}" alt="${badgeText}" class="w-full h-full object-contain bg-slate-950/80 group-hover:scale-105 transition-transform duration-500">
+                    <span class="absolute top-4 left-4 bg-accentBlue text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg z-10">
+                        ${badgeText}
+                    </span>
+                    <div class="absolute inset-0 bg-accentBlue/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="bg-cardBg/90 backdrop-blur-md text-white border border-accentBlue/50 px-5 py-2.5 rounded-xl font-bold text-sm shadow-xl flex items-center gap-2 transform translate-y-2 group-hover:translate-y-0 transition-all">
+                            <i class="fa-solid fa-eye text-accentBlue"></i>
+                            <span>Clique para Ver & Fazer Orçamento</span>
+                        </span>
+                    </div>
+                `;
+
+                // Ao clicar na imagem do carrossel, abre o lightbox futurista
+                itemDiv.addEventListener('click', () => {
+                    openFuturisticLightbox(src, badgeText, serviceLabel);
+                });
+
+                modalTrack.appendChild(itemDiv);
+            }
+
+            tryLoadImage();
+        }
+    </script>
+</body>
+</html>
